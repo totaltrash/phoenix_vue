@@ -4,4 +4,8 @@ defmodule MyAppWeb.PageController do
   def index(conn, _params) do
     render(conn, "index.html")
   end
+
+  def client(conn, _params) do
+    render(conn, "client.html")
+  end
 end
