@@ -1,0 +1,137 @@
+{
+  "attributes": [
+    {
+      "allow_nil?": false,
+      "default": "fragment(\"uuid_generate_v4()\")",
+      "generated?": false,
+      "name": "id",
+      "primary_key?": true,
+      "references": null,
+      "size": null,
+      "type": "uuid"
+    },
+    {
+      "allow_nil?": false,
+      "default": "nil",
+      "generated?": false,
+      "name": "username",
+      "primary_key?": false,
+      "references": null,
+      "size": null,
+      "type": "citext"
+    },
+    {
+      "allow_nil?": false,
+      "default": "nil",
+      "generated?": false,
+      "name": "email",
+      "primary_key?": false,
+      "references": null,
+      "size": null,
+      "type": "citext"
+    },
+    {
+      "allow_nil?": false,
+      "default": "nil",
+      "generated?": false,
+      "name": "first_name",
+      "primary_key?": false,
+      "references": null,
+      "size": null,
+      "type": "text"
+    },
+    {
+      "allow_nil?": false,
+      "default": "nil",
+      "generated?": false,
+      "name": "surname",
+      "primary_key?": false,
+      "references": null,
+      "size": null,
+      "type": "text"
+    },
+    {
+      "allow_nil?": false,
+      "default": "[]",
+      "generated?": false,
+      "name": "roles",
+      "primary_key?": false,
+      "references": null,
+      "size": null,
+      "type": [
+        "array",
+        "text"
+      ]
+    },
+    {
+      "allow_nil?": true,
+      "default": "nil",
+      "generated?": false,
+      "name": "confirmed_at",
+      "primary_key?": false,
+      "references": null,
+      "size": null,
+      "type": "utc_datetime_usec"
+    },
+    {
+      "allow_nil?": true,
+      "default": "nil",
+      "generated?": false,
+      "name": "hashed_password",
+      "primary_key?": false,
+      "references": null,
+      "size": null,
+      "type": "text"
+    },
+    {
+      "allow_nil?": false,
+      "default": "fragment(\"now()\")",
+      "generated?": false,
+      "name": "created_date",
+      "primary_key?": false,
+      "references": null,
+      "size": null,
+      "type": "utc_datetime_usec"
+    },
+    {
+      "allow_nil?": false,
+      "default": "fragment(\"now()\")",
+      "generated?": false,
+      "name": "updated_date",
+      "primary_key?": false,
+      "references": null,
+      "size": null,
+      "type": "utc_datetime_usec"
+    }
+  ],
+  "base_filter": null,
+  "check_constraints": [],
+  "custom_indexes": [],
+  "has_create_action": true,
+  "hash": "16DD51B1C3C5462C45FCA1B4EB9BA79B0AB294740BE15C98ACB99ECC659CBA18",
+  "identities": [
+    {
+      "base_filter": null,
+      "index_name": "user_unique_email_index",
+      "keys": [
+        "email"
+      ],
+      "name": "unique_email"
+    },
+    {
+      "base_filter": null,
+      "index_name": "user_unique_username_index",
+      "keys": [
+        "username"
+      ],
+      "name": "unique_username"
+    }
+  ],
+  "multitenancy": {
+    "attribute": null,
+    "global": null,
+    "strategy": null
+  },
+  "repo": "Elixir.MyApp.Repo",
+  "table": "user"
+}

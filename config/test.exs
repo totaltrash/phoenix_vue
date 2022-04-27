@@ -18,7 +18,7 @@ config :my_app, MyApp.Repo,
 config :my_app, MyAppWeb.Endpoint,
   http: [ip: {127, 0, 0, 1}, port: 4002],
   secret_key_base: "hvmtn0ReGJdhG0rK8NZAjS5aHJhi2QoJFABXki3C63gWMMHP3KFUSv+AESui13+a",
-  server: false
+  server: true
 
 # In test we don't send emails.
 config :my_app, MyApp.Mailer, adapter: Swoosh.Adapters.Test
@@ -28,3 +28,10 @@ config :logger, level: :warn
 
 # Initialize plugs at runtime for faster test compilation
 config :phoenix, :plug_init_mode, :runtime
+
+# Only in tests, remove the complexity from the password hashing algorithm
+config :bcrypt_elixir, :log_rounds, 1
+
+# Wallaby config
+config :my_app, :sql_sandbox, true
+config :wallaby, driver: Wallaby.Chrome, chromedriver: [headless: true]

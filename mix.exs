@@ -48,7 +48,11 @@ defmodule MyApp.MixProject do
       {:telemetry_poller, "~> 1.0"},
       {:gettext, "~> 0.18"},
       {:jason, "~> 1.2"},
-      {:plug_cowboy, "~> 2.5"}
+      {:plug_cowboy, "~> 2.5"},
+      {:ash, "~> 1.51"},
+      {:ash_postgres, "~> 0.41.7"},
+      {:bcrypt_elixir, "~> 3.0"},
+      {:wallaby, "~> 0.29.1", runtime: false, only: :test}
     ]
   end
 
