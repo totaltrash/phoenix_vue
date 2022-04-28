@@ -63,6 +63,9 @@ if config_env() == :prod do
     ],
     secret_key_base: secret_key_base
 
+  config :my_app,
+    instance_name: System.get_env("INSTANCE_NAME") || ""
+
   # ## Configuring the mailer
   #
   # In production you need to configure the mailer to use a different adapter.

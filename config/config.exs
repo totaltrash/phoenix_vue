@@ -50,6 +50,9 @@ config :phoenix, :json_library, Jason
 # Set the Api modules for ash migrations
 config :my_app, ash_apis: [MyApp.Accounts]
 
+# Default app config
+config :my_app, instance_name: ""
+
 # Import environment specific config. This must remain at the bottom
 # of this file so it overrides the configuration defined above.
 import_config "#{config_env()}.exs"

@@ -8,14 +8,33 @@ defmodule MyAppWeb.Router do
     plug :put_root_layout, {MyAppWeb.LayoutView, :root}
     plug :protect_from_forgery
     plug :put_secure_browser_headers
+    plug :fetch_current_user
+    plug :fetch_instance_config
   end
 
   pipeline :api do
     plug :accepts, ["json"]
   end
 
+  pipeline :public do
+    plug :put_root_layout, {MyAppWeb.LayoutView, :public}
+  end
+
+  scope "/", MyAppWeb do
+    pipe_through [:browser, :redirect_if_user_is_authenticated, :public]
+
+    get "/login", AuthController, :login_form
+    post "/login", AuthController, :login
+  end
+
   scope "/", MyAppWeb do
     pipe_through :browser
+
+    get "/logout", AuthController, :logout
+  end
+
+  scope "/", MyAppWeb do
+    pipe_through [:browser, :require_authenticated_user]
 
     get "/", PageController, :index
     get "/client", ClientController, :index
@@ -53,5 +72,10 @@ defmodule MyAppWeb.Router do
 
       forward "/mailbox", Plug.Swoosh.MailboxPreview
     end
+  end
+
+  def fetch_instance_config(conn, _opts) do
+    conn
+    |> assign(:instance_name, Application.fetch_env!(:my_app, :instance_name))
   end
 end

@@ -74,6 +74,8 @@ defmodule MyAppWeb do
       import Plug.Conn
       import Phoenix.Controller
       import Phoenix.LiveView.Router
+      import MyAppWeb.UserAuth
+      import MyAppWeb.Authorization
     end
   end
 

@@ -6,5 +6,6 @@ defmodule MyApp.Accounts.Registry do
     entry(MyApp.Accounts.User)
     entry(MyApp.Accounts.UserToken)
     entry(MyApp.Accounts.Session)
+    entry(MyApp.Accounts.Course)
   end
 end

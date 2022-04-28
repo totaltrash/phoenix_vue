@@ -1,0 +1,44 @@
+# Helpers
+
+## Seed
+
+```elixir
+user =
+  MyApp.Accounts.User
+  |> Ash.Query.for_read(:read)
+  |> MyApp.Accounts.read()
+
+# # |> Ash.Query.for_read(:read)
+
+# |> Ash.Query.for_read(:by_username, %{username: "dblack"})
+# |> MyApp.Accounts.read_one()
+
+# MyApp.Api.create!()
+```
+
+```elixir
+# course =
+#   MyApp.Accounts.Course
+#   |> Ash.Changeset.for_create(:create, %{code: "SOMECODE", title: "Some Course"})
+#   |> MyApp.Accounts.create!()
+
+# user =
+#   MyApp.Accounts.User
+#   |> Ash.Changeset.for_create(:create, %{
+#     username: "dblack",
+#     email: "dblack@totaltrash.net",
+#     first_name: "Darren",
+#     surname: "Black",
+#     roles: [],
+#     password: "SomeP@ss",
+#     password_confirmation: "SomeP@ss"
+#   })
+#   |> MyApp.Accounts.create!()
+```
+
+```elixir
+course =
+  MyApp.Accounts.Course
+  |> Ash.Query.for_read(:read)
+  |> MyApp.Accounts.read()
+```

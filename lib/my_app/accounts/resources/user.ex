@@ -23,6 +23,12 @@ defmodule MyApp.Accounts.User do
       prepare(build(sort: [username: :asc], load: [:full_name]))
     end
 
+    read :by_username do
+      argument(:username, :string, allow_nil?: false, sensitive?: true)
+      prepare(build(load: [:full_name]))
+      filter(expr(username == ^arg(:username)))
+    end
+
     read :by_username_and_password do
       argument(:username, :string, allow_nil?: false, sensitive?: true)
       argument(:password, :string, allow_nil?: false, sensitive?: true)
@@ -247,7 +253,17 @@ defmodule MyApp.Accounts.User do
   end
 
   calculations do
-    calculate(:full_name, :string, concat([:first_name, :surname], " "))
+    # with built in calculation
+    # calculate(:full_name, :string, concat([:first_name, :surname], " "))
+
+    # with expression
+    # calculate(:full_name, :string, expr(first_name <> " " <> surname))
+
+    # with fragment using concat operator
+    # calculate(:full_name, :string, expr(fragment("first_name || ' ' || surname")))
+
+    # with fragment using concat_ws function
+    calculate(:full_name, :string, expr(fragment("concat_ws(' ', ?, ?)", first_name, surname)))
   end
 
   validations do

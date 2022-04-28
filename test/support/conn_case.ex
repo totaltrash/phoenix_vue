@@ -17,12 +17,15 @@ defmodule Test.ConnCase do
 
   use ExUnit.CaseTemplate
 
+  import Test.Factory
+
   using do
     quote do
       # Import conveniences for testing with connections
       import Plug.Conn
       import Phoenix.ConnTest
       import Test.ConnCase
+      import Test.Factory
 
       alias MyAppWeb.Router.Helpers, as: Routes
 
@@ -32,7 +35,58 @@ defmodule Test.ConnCase do
   end
 
   setup tags do
-    Test.DataCase.setup_sandbox(tags)
-    {:ok, conn: Phoenix.ConnTest.build_conn()}
+    :ok = Ecto.Adapters.SQL.Sandbox.checkout(MyApp.Repo)
+
+    unless tags[:async] do
+      Ecto.Adapters.SQL.Sandbox.mode(MyApp.Repo, {:shared, self()})
+    end
+
+    context =
+      %{}
+      |> set_conn_context()
+      |> set_user_context(tags)
+      |> do_login(tags)
+
+    {:ok, context}
+  end
+
+  defp set_conn_context(context) do
+    Map.put(context, :conn, Phoenix.ConnTest.build_conn())
+  end
+
+  defp set_user_context(conn, tags) do
+    if tags[:user] == false do
+      conn
+    else
+      {user, raw_password} =
+        if tags[:user] != nil do
+          insert(:user, Enum.into(tags[:user], %{with_raw_password: true}))
+        else
+          insert(:user, with_raw_password: true)
+        end
+
+      conn
+      |> Map.put(:user, user)
+      |> Map.put(:raw_password, raw_password)
+    end
+  end
+
+  defp do_login(context = %{conn: conn, user: user}, tags) do
+    if tags[:login] == false do
+      context
+    else
+      %{token: token} = insert(:user_token, user: user)
+
+      conn =
+        conn
+        |> Phoenix.ConnTest.init_test_session(%{})
+        |> Plug.Conn.put_session(:user_token, token)
+
+      Map.put(context, :conn, conn)
+    end
+  end
+
+  defp do_login(context, _tags) do
+    context
   end
 end

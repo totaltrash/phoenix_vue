@@ -1,9 +1,9 @@
 defmodule Test.Feature.Auth.LoginTest do
   use Test.FeatureCase
 
+  @moduletag :wip
   @moduletag login: false
 
-  @tag :wip
   feature "successful login", %{session: session, user: user, raw_password: raw_password} do
     session
     |> visit(login_route())
@@ -12,50 +12,50 @@ defmodule Test.Feature.Auth.LoginTest do
     |> assert_has(page_header("Home"))
   end
 
-  # @tag user: [username: "BAMMO", password: "CHOMPY"]
-  # feature "login with tags overriding user defaults", %{
-  #   session: session,
-  #   user: user,
-  #   raw_password: raw_password
-  # } do
-  #   session
-  #   |> visit(login_route())
-  #   |> fill_form(user.username, raw_password)
-  #   |> assert_has(page_header("Home"))
-  # end
+  @tag user: [username: "BAMMO", password: "CHOMPY"]
+  feature "login with tags overriding user defaults", %{
+    session: session,
+    user: user,
+    raw_password: raw_password
+  } do
+    session
+    |> visit(login_route())
+    |> fill_form(user.username, raw_password)
+    |> assert_has(page_header("Home"))
+  end
 
-  # feature "login and redirect", %{session: session, user: user, raw_password: raw_password} do
-  #   session
-  #   |> visit(projects_route())
-  #   |> assert_has(login_form())
-  #   |> fill_form(user.username, raw_password)
-  #   |> assert_has(page_header("Projects"))
-  # end
+  feature "login and redirect", %{session: session, user: user, raw_password: raw_password} do
+    session
+    |> visit(client_route())
+    |> assert_has(login_form())
+    |> fill_form(user.username, raw_password)
+    |> assert_has(page_header("Client"))
+  end
 
-  # feature "failed login invalid username", %{session: session} do
-  #   session
-  #   |> visit(login_route())
-  #   |> fill_form("invalid", "whatever")
-  #   |> assert_login_failed()
-  # end
+  feature "failed login invalid username", %{session: session} do
+    session
+    |> visit(login_route())
+    |> fill_form("invalid", "whatever")
+    |> assert_login_failed()
+  end
 
-  # feature "failed login invalid password", %{session: session, user: user} do
-  #   session
-  #   |> visit(login_route())
-  #   |> fill_form(user.username, "whatever")
-  #   |> assert_login_failed()
-  # end
+  feature "failed login invalid password", %{session: session, user: user} do
+    session
+    |> visit(login_route())
+    |> fill_form(user.username, "whatever")
+    |> assert_login_failed()
+  end
 
-  # @tag login: true
-  # feature "login automatically for tests", %{session: session} do
-  #   session
-  #   |> visit(home_route())
-  #   |> assert_has(page_header("Home"))
-  # end
+  @tag login: true
+  feature "login automatically for tests", %{session: session} do
+    session
+    |> visit(home_route())
+    |> assert_has(page_header("Home"))
+  end
 
   defp login_route, do: Routes.auth_path(@endpoint, :login)
-  defp home_route, do: Routes.live_path(@endpoint, CrmWeb.HomeLive)
-  defp projects_route, do: Routes.project_index_path(@endpoint, :index)
+  defp home_route, do: Routes.page_path(@endpoint, :index)
+  defp client_route, do: Routes.client_path(@endpoint, :index)
   defp login_form, do: Query.data("role", "login-form")
 
   defp assert_login_failed(session) do

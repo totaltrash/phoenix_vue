@@ -6,7 +6,7 @@ import HelloWorld from './components/HelloWorld.vue'
 // the following is an example of using a js file that may be shared by the
 // phoenix app.js
 // import { meaningOfLife } from '../../shared'
-console.log('App.vue')
+// console.log('App.vue')
 </script>
 
 <template>
@@ -16,6 +16,8 @@ console.log('App.vue')
   <router-link to="/">HelloWorld</router-link>
   |
   <router-link to="/about">About</router-link>
+  |
+  <a href="/logout">Logout</a>
   <router-view></router-view>
 </template>
 
