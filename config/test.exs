@@ -33,5 +33,5 @@ config :phoenix, :plug_init_mode, :runtime
 config :bcrypt_elixir, :log_rounds, 1
 
 # Wallaby config
-config :my_app, :sql_sandbox, true
+config :my_app, :sandbox, Ecto.Adapters.SQL.Sandbox
 config :wallaby, driver: Wallaby.Chrome, chromedriver: [headless: true]

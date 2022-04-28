@@ -18,7 +18,7 @@ defmodule MyAppWeb.Router do
     pipe_through :browser
 
     get "/", PageController, :index
-    get "/client", PageController, :client
+    get "/client", ClientController, :index
   end
 
   # Other scopes may use custom stacks.
