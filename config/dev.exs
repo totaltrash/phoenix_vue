@@ -34,6 +34,14 @@ config :my_app, MyAppWeb.Endpoint,
         "ESBUILD_LOG_LEVEL" => "silent",
         "ESBUILD_WATCH" => "1"
       }
+    ],
+    npx: [
+      "tailwindcss",
+      "--input=css/app.css",
+      "--output=../priv/static/assets/css/app.css",
+      "--postcss",
+      "--watch",
+      cd: Path.expand("../assets", __DIR__)
     ]
   ]
 

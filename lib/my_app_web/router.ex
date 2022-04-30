@@ -4,8 +4,9 @@ defmodule MyAppWeb.Router do
   pipeline :browser do
     plug :accepts, ["html"]
     plug :fetch_session
-    plug :fetch_live_flash
-    plug :put_root_layout, {MyAppWeb.LayoutView, :root}
+    plug :fetch_flash
+    plug :put_root_layout, false
+    plug :put_layout, false
     plug :protect_from_forgery
     plug :put_secure_browser_headers
     plug :fetch_current_user
@@ -16,8 +17,22 @@ defmodule MyAppWeb.Router do
     plug :accepts, ["json"]
   end
 
+  # Login, other non authenticated pages
   pipeline :public do
-    plug :put_root_layout, {MyAppWeb.LayoutView, :public}
+    plug :put_root_layout, {MyAppWeb.LayoutView, :root_public}
+    plug :put_layout, {MyAppWeb.LayoutView, :app}
+  end
+
+  # Authenticated, non-vue pages
+  pipeline :app do
+    plug :put_root_layout, {MyAppWeb.LayoutView, :root_app}
+    plug :put_layout, {MyAppWeb.LayoutView, :app}
+  end
+
+  # Authenticated, vue client
+  pipeline :client do
+    plug :put_root_layout, {MyAppWeb.LayoutView, :root_client}
+    plug :put_layout, false
   end
 
   scope "/", MyAppWeb do
@@ -34,9 +49,14 @@ defmodule MyAppWeb.Router do
   end
 
   scope "/", MyAppWeb do
-    pipe_through [:browser, :require_authenticated_user]
+    pipe_through [:browser, :require_authenticated_user, :app]
 
     get "/", PageController, :index
+  end
+
+  scope "/", MyAppWeb do
+    pipe_through [:browser, :require_authenticated_user, :client]
+
     get "/client", ClientController, :index
   end
 

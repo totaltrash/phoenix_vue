@@ -26,10 +26,10 @@ defmodule Test.Feature.Auth.LoginTest do
 
   feature "login and redirect", %{session: session, user: user, raw_password: raw_password} do
     session
-    |> visit(client_route())
+    |> visit(page_route())
     |> assert_has(login_form())
     |> fill_form(user.username, raw_password)
-    |> assert_has(page_header("Client"))
+    |> assert_has(page_header("Some Page"))
   end
 
   feature "failed login invalid username", %{session: session} do
@@ -54,8 +54,8 @@ defmodule Test.Feature.Auth.LoginTest do
   end
 
   defp login_route, do: Routes.auth_path(@endpoint, :login)
-  defp home_route, do: Routes.page_path(@endpoint, :index)
-  defp client_route, do: Routes.client_path(@endpoint, :index)
+  defp home_route, do: Routes.client_path(@endpoint, :index)
+  defp page_route, do: Routes.page_path(@endpoint, :index)
   defp login_form, do: Query.data("role", "login-form")
 
   defp assert_login_failed(session) do

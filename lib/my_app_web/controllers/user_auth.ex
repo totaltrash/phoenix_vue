@@ -168,7 +168,7 @@ defmodule MyAppWeb.UserAuth do
 
   defp maybe_store_return_to(conn), do: conn
 
-  defp signed_in_path(_conn), do: "/"
+  defp signed_in_path(_conn), do: "/client"
 
   def put_session_layout(conn, _opts) do
     conn

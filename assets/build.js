@@ -26,7 +26,7 @@ const plugins = [
 ]
 
 const promise = esbuild.build({
-  entryPoints: ['js/app.js', 'client/main.js'],
+  entryPoints: ['js/public.js', 'js/app.js', 'client/main.js'],
   bundle,
   target: 'es2016',
   plugins,
