@@ -2,13 +2,13 @@ import { createRouter, createMemoryHistory, createWebHistory, createWebHashHisto
 import routes from './routes'
 
 export default function (/* { store, ssrContext } */) {
-  const createHistory = createWebHashHistory
+  const createHistory = createWebHistory
 
   const Router = createRouter({
     scrollBehavior: () => ({ left: 0, top: 0 }),
     routes,
 
-    history: createHistory()
+    history: createHistory('/client/')
   })
 
   return Router
