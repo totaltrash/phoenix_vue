@@ -25,9 +25,11 @@ const plugins = [
   // })
 ]
 
+// possible split the static site js build to a separate build file?
 const promise = esbuild.build({
   entryPoints: ['js/public.js', 'js/app.js', 'client/main.js'],
   bundle,
+  define: {__VUE_OPTIONS_API__: true, __VUE_PROD_DEVTOOLS__: false},
   target: 'es2016',
   plugins,
   outdir: '../priv/static/assets',
