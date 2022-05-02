@@ -51,6 +51,8 @@ defmodule MyApp.MixProject do
       {:plug_cowboy, "~> 2.5"},
       {:ash, "~> 1.51"},
       {:ash_postgres, "~> 0.41.7"},
+      {:ash_graphql, "~> 0.17.5"},
+      {:absinthe_graphql_ws, "~> 0.3.5"},
       {:bcrypt_elixir, "~> 3.0"},
       {:wallaby, "~> 0.29.1", runtime: false, only: :test}
     ]

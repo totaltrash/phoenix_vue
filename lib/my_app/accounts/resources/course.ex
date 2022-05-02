@@ -1,5 +1,9 @@
 defmodule MyApp.Accounts.Course do
-  use Ash.Resource, data_layer: AshPostgres.DataLayer
+  use Ash.Resource,
+    data_layer: AshPostgres.DataLayer,
+    extensions: [
+      AshGraphql.Resource
+    ]
 
   postgres do
     table("course")
@@ -28,6 +32,26 @@ defmodule MyApp.Accounts.Course do
   end
 
   calculations do
-    calculate(:full_title, :string, concat([:code, :title], " "))
+    # calculate(:full_title, :string, concat([:code, :title], " "))
+    calculate(:full_title, :string, expr(code <> " " <> title))
+  end
+
+  graphql do
+    type(:course)
+
+    queries do
+      # create a field called `get_course` that uses the read action to fetch a single course
+      get(:get_course, :read)
+
+      # create a field called `list_courses` that uses the read action to fetch a list of courses
+      list(:list_courses, :read)
+    end
+
+    # mutations do
+    #   # And so on
+    #   create :create_course, :create
+    #   update :update_course, :update
+    #   destroy :destroy_course, :destroy
+    # end
   end
 end

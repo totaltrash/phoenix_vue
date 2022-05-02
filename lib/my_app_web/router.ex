@@ -82,6 +82,18 @@ defmodule MyAppWeb.Router do
     end
   end
 
+  # Enables Graphiql playground for development
+  if Mix.env() in [:dev, :test] do
+    scope "/" do
+      # forward "/gql", Absinthe.Plug, schema: MyApp.Schema
+
+      forward "/playground",
+              Absinthe.Plug.GraphiQL,
+              schema: MyApp.Schema,
+              interface: :playground
+    end
+  end
+
   # Enables the Swoosh mailbox preview in development.
   #
   # Note that preview only shows emails that were sent by the same

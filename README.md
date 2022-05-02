@@ -23,3 +23,18 @@ Installing Vue in a Phoenix app:
 Using Pinia with Axios to connect to an API:
 
   - https://blog.logrocket.com/consume-apis-with-vuex-pinia-axios/
+
+## Apollo over websocket
+
+Lots of reading out there that may be a little out of date. This post mentions a current way to go: https://elixirforum.com/t/graphql-with-absinthe-only-via-websockets-do-you-know-of-an-example/34899/5
+
+The following links may contain outdated info (some of the repos haven't been touched in 5years)
+
+Note (old): AshGraphql is not involved in the *use* of the graphql api, it is handled solely by Absinthe, so something like the [@absinthe/socket-apollo-link](https://github.com/absinthe-graphql/absinthe-socket/tree/master/packages/socket-apollo-link) should be the go (although looks like it is out of date, see [this](https://github.com/absinthe-graphql/absinthe-socket/pull/58)).
+
+  - https://www.apollographql.com/docs/react/api/link/apollo-link-subscriptions
+  - https://www.apollographql.com/docs/react/api/link/community-links
+  - https://github.com/vic/apollo-phoenix-websocket
+  - https://github.com/absinthe-graphql/absinthe-socket/tree/master/packages/socket-apollo-link
+  - https://github.com/absinthe-graphql/absinthe-socket/pull/58
+  - https://dev.to/joehua87/simple-way-to-use-abinsthe-subscription-in-urql-1j59
