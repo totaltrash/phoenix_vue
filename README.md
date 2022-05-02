@@ -1,19 +1,25 @@
-# MyApp
+# Phoenix + Vue3
 
-To start your Phoenix server:
+Playing with embedding a Vue3 SPA in a Phoenix app. I am aiming to:
 
-  * Install dependencies with `mix deps.get`
-  * Create and migrate your database with `mix ecto.setup`
-  * Start Phoenix endpoint with `mix phx.server` or inside IEx with `iex -S mix phx.server`
+  - [x] Embed the SPA in a normal Phoenix template
+  - [x] Use Phoenix to provide authentication to the SPA (using a modified version of phx_gen_auth)
+  - [ ] Connect the SPA to the Phoenix app using a web socket
+  - [ ] Decide on what mechanism to exchange data between the two apps (probably graphql, over the socket)
+  - [ ] Use Ash (and if I use Graphql, AshGraphql) to provide the API from the Phoenix side
+  - [x] Use Pinia
+  - [ ] Explore auto generating Pinia stores based on the Ash resources
+  - [x] Use Tailwind, Heroicons, HeadlessUI on the client
 
-Now you can visit [`localhost:4000`](http://localhost:4000) from your browser.
+## Reading
 
-Ready to run in production? Please [check our deployment guides](https://hexdocs.pm/phoenix/deployment.html).
+Installing Vue in a Phoenix app:
 
-## Learn more
+  - https://elixirforum.com/t/how-to-integrate-phoenix-1-6-with-vue-and-esbuild/45208
+  - https://github.com/smpallen99/phx_vue3
+  - https://dev.to/sethcalebweeks/phoenix-16-vue-esbuild-59i0
+  - https://hexdocs.pm/phoenix/asset_management.html
 
-  * Official website: https://www.phoenixframework.org/
-  * Guides: https://hexdocs.pm/phoenix/overview.html
-  * Docs: https://hexdocs.pm/phoenix
-  * Forum: https://elixirforum.com/c/phoenix-forum
-  * Source: https://github.com/phoenixframework/phoenix
+Using Pinia with Axios to connect to an API:
+
+  - https://blog.logrocket.com/consume-apis-with-vuex-pinia-axios/
