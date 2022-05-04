@@ -28,6 +28,9 @@ Using Pinia with Axios to connect to an API:
 
 Lots of reading out there that may be a little out of date. This post mentions a current way to go: https://elixirforum.com/t/graphql-with-absinthe-only-via-websockets-do-you-know-of-an-example/34899/5
 
+  - https://github.com/enisdenjo/graphql-ws
+  - https://hexdocs.pm/absinthe_graphql_ws/overview.html
+
 The following links may contain outdated info (some of the repos haven't been touched in 5years)
 
 Note (old): AshGraphql is not involved in the *use* of the graphql api, it is handled solely by Absinthe, so something like the [@absinthe/socket-apollo-link](https://github.com/absinthe-graphql/absinthe-socket/tree/master/packages/socket-apollo-link) should be the go (although looks like it is out of date, see [this](https://github.com/absinthe-graphql/absinthe-socket/pull/58)).

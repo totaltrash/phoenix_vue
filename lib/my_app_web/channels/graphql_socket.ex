@@ -1,3 +1,3 @@
 defmodule MyAppWeb.GraphqlSocket do
-  use Absinthe.GraphqlWS.Socket, schema: MyAppWeb.Schema
+  use Absinthe.GraphqlWS.Socket, schema: MyApp.Schema
 end
