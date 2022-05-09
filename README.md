@@ -24,12 +24,31 @@ Using Pinia with Axios to connect to an API:
 
   - https://blog.logrocket.com/consume-apis-with-vuex-pinia-axios/
 
-## Apollo over websocket
+## Graphql over websocket
 
 Lots of reading out there that may be a little out of date. This post mentions a current way to go: https://elixirforum.com/t/graphql-with-absinthe-only-via-websockets-do-you-know-of-an-example/34899/5
 
+
   - https://github.com/enisdenjo/graphql-ws
   - https://hexdocs.pm/absinthe_graphql_ws/overview.html
+
+Playing with URQL currently
+
+  - https://formidable.com/open-source/urql/docs/basics/vue/
+  - https://formidable.com/open-source/urql/docs/api/vue/
+
+And... this fills in lots of blanks (using graphql-ws combined with urql):
+
+  - https://github.com/FormidableLabs/urql/discussions/2190
+  - https://github.com/andyrichardson/graphql-http-vs-ws/blob/master/frontend/src/benchmark.ts#L25
+  - https://github.com/andyrichardson/graphql-http-vs-ws
+  - https://dev.to/andyrichardsonn/graphql-requests-over-http-s-are-slow-d1p
+
+More chat on graphql-ws:
+
+  - https://www.the-guild.dev/blog/graphql-over-websockets
+
+## Other graphql / websocket info
 
 The following links may contain outdated info (some of the repos haven't been touched in 5years)
 
