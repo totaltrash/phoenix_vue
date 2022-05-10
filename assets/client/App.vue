@@ -1,7 +1,3 @@
-<script setup>
-import Navbar from './components/Navbar.vue';
-</script>
-
 <template>
   <div class="md:container md:mx-auto">
     <Navbar />
@@ -10,3 +6,7 @@ import Navbar from './components/Navbar.vue';
     </div>
   </div>
 </template>
+
+<script setup>
+import Navbar from '~/components/Navbar.vue';
+</script>

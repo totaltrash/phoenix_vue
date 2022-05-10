@@ -14,7 +14,15 @@ import { useQuery } from '@urql/vue'
 export default {
   setup() {
     const result = useQuery({
-      query: `{ listCourses {id fullTitle code title} }`
+      query: `{ listCourses(limit: 1) {
+        count
+        results {
+          id
+          fullTitle
+          code
+          title
+        }
+      } }`
     });
 
     return {

@@ -28,7 +28,15 @@ config :my_app, MyAppWeb.Endpoint,
     # Start the esbuild watcher by calling Esbuild.install_and_run(:default, args)
     # esbuild: {Esbuild, :install_and_run, [:default, ~w(--sourcemap=inline --watch)]}
     node: [
-      "build.js",
+      "build_client.js",
+      cd: Path.expand("../assets", __DIR__),
+      env: %{
+        "ESBUILD_LOG_LEVEL" => "info",
+        "ESBUILD_WATCH" => "1"
+      }
+    ],
+    node: [
+      "build_js.js",
       cd: Path.expand("../assets", __DIR__),
       env: %{
         "ESBUILD_LOG_LEVEL" => "silent",

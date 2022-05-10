@@ -14,6 +14,7 @@ defmodule MyApp.Accounts.Course do
     read :read do
       primary?(true)
       prepare(build(load: [:full_title]))
+      pagination(offset?: true, required?: false)
     end
   end
 

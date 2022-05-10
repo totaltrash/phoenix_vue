@@ -2,6 +2,9 @@
 
 const esbuild = require('esbuild')
 const pluginVue = require('esbuild-plugin-vue-next')
+const aliasPlugin = require('esbuild-plugin-path-alias');
+const path = require('path');
+
 // Looks like it requires Node 18
 // const copyStaticFiles = require('esbuild-copy-static-files')
 
@@ -15,6 +18,10 @@ const format = 'esm'
 
 const plugins = [
   pluginVue(),
+  aliasPlugin({
+    // must be absolute path
+    '~': path.resolve(__dirname, './client')
+  })
   // copyStaticFiles({
   //   src: 'client/assets',
   //   dest: '../priv/static/images',
@@ -27,12 +34,12 @@ const plugins = [
 
 // possible split the static site js build to a separate build file?
 const promise = esbuild.build({
-  entryPoints: ['js/public.js', 'js/app.js', 'client/main.js'],
+  entryPoints: ['client/main.js'],
   bundle,
   define: {__VUE_OPTIONS_API__: true, __VUE_PROD_DEVTOOLS__: false},
   target: 'es2016',
   plugins,
-  outdir: '../priv/static/assets',
+  outdir: '../priv/static/assets/client',
   logLevel,
   watch,
   splitting,

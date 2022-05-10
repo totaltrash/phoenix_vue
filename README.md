@@ -48,6 +48,10 @@ More chat on graphql-ws:
 
   - https://www.the-guild.dev/blog/graphql-over-websockets
 
+Pagination with Graphql:
+
+  - https://daily.dev/blog/pagination-in-graphql
+
 ## Other graphql / websocket info
 
 The following links may contain outdated info (some of the repos haven't been touched in 5years)
