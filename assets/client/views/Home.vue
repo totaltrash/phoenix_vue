@@ -1,35 +1,67 @@
 <template>
-  <h1 data-role="header-title" class="text-3xl font-bold">Home</h1>
-  <h2 class="text-xl font-bold">Data</h2>
-  {{ data }}
-  <h2 class="text-xl font-bold">Fetching</h2>
+  <H1>Home</H1>
+
+  <H2>Data</H2>
+  <DataTable v-if="data" :cols="cols" :items="data.listCourses.results" class="mb-4" />
+  <!-- <div>
+    {{ data }}
+  </div> -->
+
+  <H2>Fetching</H2>
   {{ fetching }}
-  <h2 class="text-xl font-bold">Error</h2>
+
+  <H2>Error</H2>
   {{ error }}
+
 </template>
 
-<script>
+<script setup>
 import { useQuery } from '@urql/vue'
+import { H1, H2 } from '~/components/heading'
+import DataTable from '~/components/DataTable.vue'
 
-export default {
-  setup() {
-    const result = useQuery({
-      query: `{ listCourses(limit: 1) {
-        count
-        results {
-          id
-          fullTitle
-          code
-          title
-        }
-      } }`
-    });
+const result = useQuery({
+  query: `{ listCourses(limit: 1) {
+    count
+    results {
+      id
+      fullTitle
+      code
+      title
+    }
+  } }`
+})
 
-    return {
-      fetching: result.fetching,
-      data: result.data,
-      error: result.error,
-    };
-  }
-}
+const { fetching, data, error } = result
+
+const cols = [
+  { field: "code", label: "Code", class: "w-64" },
+  { field: "title", label: "Title" },
+]
+
+// const fetching = result.fetching
+// const data = result.data
+// const error = result.error
+
+// const page = reactive({ page: data.listCourses })
+// const items = result?.data?.listCourses?.results ?? []
+
+// const items = computed(() => {
+//   return result.data ? result.data.listCourses.results : []
+//   // return result?.data?.listCourses?.results ?? []
+//   // if (result.data) {
+//   //   return JSON.parse(result.data.listCourses.results);
+//   // } else {
+//   //   return []
+//   // }
+// })
+
+// console.log(result.data.listCourses)
+// if (result.data && result.data.listCourses) {
+//   return result.data.listCourses.results
+// }
+
+// return [{ id: 666, title: 'GRR' }]
+// })
+
 </script>

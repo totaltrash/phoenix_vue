@@ -6,5 +6,5 @@ export default [
   // },
   {path: "/", component: () => import('../views/Home.vue')},
   {path: "/tables", component: () => import('../views/Tables.vue')},
-  {path: "/about", component: () => import('../views/About.vue')},
+  {path: "/stores", component: () => import('../views/Stores.vue')},
 ]

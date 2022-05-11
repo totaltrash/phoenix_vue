@@ -93,7 +93,7 @@ import { BellIcon, MenuIcon, XIcon } from '@heroicons/vue/outline'
 const navigation = [
   { name: 'Home', to: '/' },
   { name: 'Tables', to: '/tables' },
-  { name: 'About', to: '/about' },
+  { name: 'Stores', to: '/stores' },
 ]
 
 export default {

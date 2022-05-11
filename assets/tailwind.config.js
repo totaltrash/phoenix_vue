@@ -1,9 +1,8 @@
 module.exports = {
   content: [
     './js/**/*.js',
-    '../lib/*_web/**/*.*ex',
-    '../assets/client/**/*.vue'
-    // '../lib/i_fix_components/**/*.*ex'
+    './client/**/*.vue',
+    '../lib/*_web/**/*.*ex'
   ],
   theme: {
     extend: {},

@@ -7,7 +7,7 @@
 <script setup>
 const props = defineProps({
   colspan: {
-    type: String
+    type: Number
   },
   class: {
     type: String
