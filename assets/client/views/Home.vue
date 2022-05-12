@@ -28,7 +28,7 @@ import DataTable from '~/components/DataTable.vue'
 import Paginator from '~/components/Paginator.vue'
 
 const offset = ref(0)
-const limit = 5
+const limit = 10
 
 const result = useQuery({
   query: `query ($limit: Int!, $offset: Int!) { listCourses(limit: $limit, offset: $offset) {

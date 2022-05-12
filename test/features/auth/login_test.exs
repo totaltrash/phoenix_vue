@@ -35,16 +35,17 @@ defmodule Test.Feature.Auth.LoginTest do
     |> assert_has(page_header("Some Page"))
   end
 
+  @tag :wip
   feature "login and redirect to client page", %{
     session: session,
     user: user,
     raw_password: raw_password
   } do
     session
-    |> visit(about_route())
+    |> visit(tables_route())
     |> assert_has(login_form())
     |> fill_form(user.username, raw_password)
-    |> assert_has(page_header("About"))
+    |> assert_has(page_header("Tables"))
   end
 
   feature "failed login invalid username", %{session: session} do
@@ -61,7 +62,6 @@ defmodule Test.Feature.Auth.LoginTest do
     |> assert_login_failed()
   end
 
-  @tag :wip
   @tag login: true
   feature "login automatically for tests", %{session: session} do
     session
@@ -71,7 +71,7 @@ defmodule Test.Feature.Auth.LoginTest do
 
   defp login_route, do: Routes.auth_path(@endpoint, :login)
   defp home_route, do: Routes.client_path(@endpoint, :index, [""])
-  defp about_route, do: Routes.client_path(@endpoint, :index, ["about"])
+  defp tables_route, do: Routes.client_path(@endpoint, :index, ["tables"])
   defp page_route, do: Routes.page_path(@endpoint, :index)
   defp login_form, do: Query.data("role", "login-form")
 
