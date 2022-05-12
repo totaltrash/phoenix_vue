@@ -1,35 +1,45 @@
 <template>
   <H1>Home</H1>
 
-  <H2>Data</H2>
-  <DataTable v-if="data" :cols="cols" :items="data.listCourses.results" class="mb-4" />
-  <!-- <div>
-    {{ data }}
-  </div> -->
+  <div v-if="data">
+    <H2>Courses</H2>
+    <DataTable :cols="cols" :items="data.listCourses.results" class="mb-4" />
+    <Paginator @change="(newOffset) => offset = newOffset" :count="data.listCourses.count" :offset="offset"
+      :limit="limit" />
+  </div>
 
-  <H2>Fetching</H2>
-  {{ fetching }}
+  <div v-if="fetching">
+    <div class="text-gray-600">
+      loading...
+    </div>
+  </div>
 
-  <H2>Error</H2>
-  {{ error }}
-
+  <div v-if="error">
+    <H2>Error</H2>
+    {{ error }}
+  </div>
 </template>
 
 <script setup>
+import { ref, reactive } from 'vue'
 import { useQuery } from '@urql/vue'
 import { H1, H2 } from '~/components/heading'
 import DataTable from '~/components/DataTable.vue'
+import Paginator from '~/components/Paginator.vue'
+
+const offset = ref(0)
+const limit = 5
 
 const result = useQuery({
-  query: `{ listCourses(limit: 1) {
+  query: `query ($limit: Int!, $offset: Int!) { listCourses(limit: $limit, offset: $offset) {
     count
     results {
       id
-      fullTitle
       code
       title
     }
-  } }`
+  } }`,
+  variables: { limit, offset }
 })
 
 const { fetching, data, error } = result
@@ -38,30 +48,5 @@ const cols = [
   { field: "code", label: "Code", class: "w-64" },
   { field: "title", label: "Title" },
 ]
-
-// const fetching = result.fetching
-// const data = result.data
-// const error = result.error
-
-// const page = reactive({ page: data.listCourses })
-// const items = result?.data?.listCourses?.results ?? []
-
-// const items = computed(() => {
-//   return result.data ? result.data.listCourses.results : []
-//   // return result?.data?.listCourses?.results ?? []
-//   // if (result.data) {
-//   //   return JSON.parse(result.data.listCourses.results);
-//   // } else {
-//   //   return []
-//   // }
-// })
-
-// console.log(result.data.listCourses)
-// if (result.data && result.data.listCourses) {
-//   return result.data.listCourses.results
-// }
-
-// return [{ id: 666, title: 'GRR' }]
-// })
 
 </script>

@@ -13,7 +13,7 @@ defmodule MyApp.Accounts.Course do
   actions do
     read :read do
       primary?(true)
-      prepare(build(load: [:full_title]))
+      prepare(build(load: [:full_title], sort: [:code]))
       pagination(offset?: true, required?: false)
     end
   end
@@ -27,8 +27,8 @@ defmodule MyApp.Accounts.Course do
     end
 
     attribute :title, :string do
-      allow_nil?(false)
-      constraints(max_length: 50)
+      allow_nil?(true)
+      constraints(max_length: 255)
     end
   end
 
