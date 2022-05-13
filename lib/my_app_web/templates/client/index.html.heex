@@ -1,1 +1,6 @@
+<script>
+  window.user_token = '<%= Base.encode64(@user_token) %>'
+  window.graphql_ws_url = 'ws://localhost:4000/api/graphql-ws'
+  window.logout_url = '<%= Routes.auth_url(@conn, :logout) %>'
+</script>
 <section id="app"></section>

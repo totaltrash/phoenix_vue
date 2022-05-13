@@ -4,12 +4,38 @@ Playing with embedding a Vue3 SPA in a Phoenix app. I am aiming to:
 
   - [x] Embed the SPA in a normal Phoenix template
   - [x] Use Phoenix to provide authentication to the SPA (using a modified version of phx_gen_auth)
-  - [ ] Connect the SPA to the Phoenix app using a web socket
-  - [ ] Decide on what mechanism to exchange data between the two apps (probably graphql, over the socket)
-  - [ ] Use Ash (and if I use Graphql, AshGraphql) to provide the API from the Phoenix side
+  - [x] Connect the SPA to the Phoenix app using a web socket
+  - [x] Decide on what mechanism to exchange data between the two sides (went with graphql, over the socket
+  - [x] Use Ash + AshGraphql to provide the API from the Phoenix side
+  - [ ] Protect the socket (using token authentication similar to the example in the Phoenix.Channels guide, but need to test)
   - [x] Use Pinia
-  - [ ] Explore auto generating Pinia stores based on the Ash resources
+  - [ ] Explore auto generating Pinia stores based on the Ash resources (probably no need as will be using the urql client directly, instead of hiding everything behind a store).
   - [x] Use Tailwind, Heroicons, HeadlessUI on the client
+
+## To Do
+
+Production build (of client)
+
+Push to a production environment and check out how stable.
+
+Review how I'm securing the socket (see handle_init in GraphqlSocket). Needs tests.
+
+More client components (buttons, modals etc)
+
+Full course crud example (with mutations)
+
+Play with pushing messages from the server to the client (notifications or toasts etc)
+
+Would like to explore an Ash client side api that emulates the Ash api, which can connect over a socket to call the Ash api. Haven't thought this through too much but, would be nice to replace Graphql as a data exchanger with something more Ash like
+
+    const courses = ash.read("MyApp.Accounts", "MyApp.Accounts.Course", "read")
+
+I'm currently sticking stuff like the user token and logout url into JS vars (see client/index.html.heex), and reading those in main.js (using the token to pass into the graphql client, not doing anything with the logout path yet). But, would be good to store this stuff in a pinia store (probably no need with the user token?). I'm sure there will be other stuff to pass from phoenix to js too.
+
+Find some way to get the socket address from the router helper... doesn't look possible? Or provide the url as an environment variable. See client/index.html.heex
+
+We're assigning the user to the absinthe context (GraphqlSocket.handle_init), but not yet using it. gotta test this when we get to authorization on the Ash side of stuff
+
 
 ## Reading
 

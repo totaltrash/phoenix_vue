@@ -175,4 +175,12 @@ defmodule MyAppWeb.UserAuth do
     |> put_layout(false)
     |> put_root_layout({MyAppWeb.LayoutView, :session})
   end
+
+  def put_user_token(conn, _opts) do
+    if user_token = get_session(conn, :user_token) do
+      assign(conn, :user_token, user_token)
+    else
+      conn
+    end
+  end
 end

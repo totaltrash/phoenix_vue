@@ -55,7 +55,7 @@ defmodule MyAppWeb.Router do
   end
 
   scope "/", MyAppWeb do
-    pipe_through [:browser, :require_authenticated_user, :client]
+    pipe_through [:browser, :require_authenticated_user, :put_user_token, :client]
 
     get "/client/*client_path", ClientController, :index
   end

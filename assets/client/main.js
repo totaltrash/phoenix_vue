@@ -8,8 +8,11 @@ import { subscriptionExchange } from '@urql/core'
 import { createClient as createGraphqlWs } from "graphql-ws"
 
 const graphqlWs = createGraphqlWs({
-  url: 'ws://localhost:4000/api/graphql-ws',
+  url: window.graphql_ws_url,
   lazy: false,
+  connectionParams: {
+    token: window.user_token
+  },
 });
 
 const urqlConfig = {
