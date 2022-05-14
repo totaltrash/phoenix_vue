@@ -48,11 +48,11 @@ defmodule MyApp.Accounts.Course do
       list(:list_courses, :read)
     end
 
-    # mutations do
-    #   # And so on
-    #   create :create_course, :create
-    #   update :update_course, :update
-    #   destroy :destroy_course, :destroy
-    # end
+    mutations do
+      # And so on
+      # create :create_course, :create
+      # update :update_course, :update
+      destroy(:destroy_course, :destroy)
+    end
   end
 end

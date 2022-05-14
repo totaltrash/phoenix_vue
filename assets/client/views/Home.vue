@@ -3,7 +3,19 @@
 
   <div v-if="data">
     <H2>Courses</H2>
-    <DataTable :cols="cols" :items="data.listCourses.results" class="mb-4" />
+    <DataTable :cols="cols" :items="data.listCourses.results" class="mb-4">
+      <template #actions="item">
+        <div class="flex gap-1 items-center">
+          <button class="rounded bg-gray-100 text-cyan-700 hover:bg-cyan-700 hover:text-white p-1">
+            <PencilIcon class="h-4 w-4" />
+          </button>
+          <button @click="deleteCourse(item.id)"
+            class="rounded bg-gray-100 text-red-700 hover:bg-red-700 hover:text-white p-1">
+            <TrashIcon class="h-4 w-4" />
+          </button>
+        </div>
+      </template>
+    </DataTable>
     <Paginator @change="(newOffset) => offset = newOffset" :count="data.listCourses.count" :offset="offset"
       :limit="limit" />
   </div>
@@ -22,31 +34,48 @@
 
 <script setup>
 import { ref, reactive } from 'vue'
-import { useQuery } from '@urql/vue'
+import { useQuery, useMutation } from '@urql/vue'
 import { H1, H2 } from '~/components/heading'
 import DataTable from '~/components/DataTable.vue'
 import Paginator from '~/components/Paginator.vue'
+import { PencilIcon, TrashIcon } from '@heroicons/vue/solid'
 
 const offset = ref(0)
 const limit = 10
 
-const result = useQuery({
+const { fetching, data, error, executeQuery } = useQuery({
   query: `query ($limit: Int!, $offset: Int!) { listCourses(limit: $limit, offset: $offset) {
     count
-    results {
-      id
-      code
-      title
-    }
+    results { id code title }
   } }`,
   variables: { limit, offset }
 })
 
-const { fetching, data, error } = result
+const { executeMutation: deleteCourseMutation } = useMutation(`
+  mutation ($id: ID!) {
+    destroyCourse(id: $id) {
+      errors { code fields message shortMessage }
+      result { id code title }
+    }
+  }
+`)
 
 const cols = [
-  { field: "code", label: "Code", class: "w-64" },
+  { field: "actions", label: "", class: "w-16" },
+  { field: "code", label: "Code", class: "w-48" },
   { field: "title", label: "Title" },
 ]
+
+function deleteCourse(id) {
+  deleteCourseMutation({ id }).then(result => {
+    refreshList()
+  })
+}
+
+function refreshList() {
+  executeQuery({
+    requestPolicy: 'network-only',
+  })
+}
 
 </script>
