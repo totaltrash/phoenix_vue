@@ -86,33 +86,15 @@
   </Disclosure>
 </template>
 
-<script>
+<script setup>
 import { Disclosure, DisclosureButton, DisclosurePanel, Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/vue'
 import { BellIcon, MenuIcon, XIcon } from '@heroicons/vue/outline'
 
 const navigation = [
   { name: 'Home', to: '/' },
+  { name: 'Courses', to: '/courses' },
+  { name: 'Modals', to: '/modals' },
   { name: 'Tables', to: '/tables' },
   { name: 'Stores', to: '/stores' },
 ]
-
-export default {
-  components: {
-    Disclosure,
-    DisclosureButton,
-    DisclosurePanel,
-    Menu,
-    MenuButton,
-    MenuItem,
-    MenuItems,
-    BellIcon,
-    MenuIcon,
-    XIcon,
-  },
-  setup(props) {
-    return {
-      navigation,
-    }
-  },
-}
 </script>
